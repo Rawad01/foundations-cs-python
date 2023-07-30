@@ -10,13 +10,34 @@ def displayAdminMenu():
     print("Admin menu:")
     print("1. Display Statistics\n2. Book a Ticket\n3. Display all Tickets\n4. Change Ticket’s Priority\n5. Disable Ticket\n6. Run Events\n7. Exit")
 
+def displayStatistics():
+    print("i am in admin display statistics")
+
+def adminBookTicket():
+    print("i am in admin ticket booking")
+
+def displayAllTickets():
+    print("i am in admin display tickets")
+
+def changeTicketPriority():
+    print("i am in admin change ticket priority")
+
+def disableTicket():
+    print("i am in admin disable ticket")
+
+def runEvents():
+    print("i am in admin run events")
+
 ########
 # User:
 ########
 
 def displayUserMenu():
-    print("User menu")
+    print("User menu:")
     print("1. Book a ticket\n2. Exit")
+
+def bookTicket():
+    print("i am in ticket booking")
 ########
 # Main:
 ########
@@ -27,6 +48,7 @@ def main():
     username = input("Please enter your username: ")
     password = input("Please enter your password: ")
     if(username != "admin" and password == ""): # user menu
+        print()
         displayUserMenu()
     else: # admin menu
         attempts = 5
@@ -40,8 +62,35 @@ def main():
                     displayAdminMenu()
                     attempts = 0
             else:
+                print()
                 displayAdminMenu()
                 attempts = 0
             attempts -= 1
-    print("I AM HEREEEEE")
+    print()
+    # Choosing from user/admin menu 
+    choice = eval(input("Please choose a number: "))
+    if(username != "admin"): # chosing from user menu
+        while(choice != 2):
+            if(choice == 1):
+                bookTicket()
+            else:
+                print("Wrong choice please choose one of the below choices: ")
+            choice = eval(input("Please choose a number: "))
+    else: # choosing from admin menu
+        while(choice != 7):
+            if(choice == 1):
+                disableTicket()
+            elif(choice == 2):
+                bookTicket()
+            elif(choice == 3):
+                displayAllTickets()
+            elif(choice == 4):
+                changeTicketPriority()
+            elif(choice == 5):
+                disableTicket()
+            elif(choice == 6):
+                runEvents()
+            else:
+                print("Wrong choice please choose one of the below choices: ")
+            choice = eval(input("Please choose a number: "))
 main()
