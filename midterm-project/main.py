@@ -47,13 +47,13 @@ def importTickets():
     # Opening the file and reading number of lines
     tickets = []
     tickets_matrix = []
-    tickets_file = open("C:\\xampp\htdocs\\visual studio projects\\book store website-capstone\\foundations-cs-python\\midterm-project\\tickets.txt", "r")
+    tickets_file = open("tickets.txt", "r")
     num_lines = len(tickets_file.readlines())
     tickets_file.close()
     # Opening the file and reading the content of the lines
     # appending the content into a list
     # then changing the list into a matrix of tickets
-    tickets_file = open("C:\\xampp\htdocs\\visual studio projects\\book store website-capstone\\foundations-cs-python\\midterm-project\\tickets.txt", "r")
+    tickets_file = open("tickets.txt", "r")
     for line in tickets_file:
         tickets.append(line.strip("\n"))
 
