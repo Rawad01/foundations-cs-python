@@ -1,0 +1,10 @@
+tick101, ev003, fred, 20230802, 0
+tick102, ev002, gio, 20230803, 2
+tick103, ev001, Rawad, 20230730, 1
+tick104, ev001, Jana, 20230730, 0
+tick105, ev002, nagham, 20230803, 0
+tick106, ev002, tarek, 20230803, 1
+tick107, ev003, ali, 20230802, 0
+tick108, ev003, sabine, 20230802, 2
+tick109, ev001, reina, 20230730, 0
+tick110, ev002, mike, 20230803, 2
