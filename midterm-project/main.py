@@ -38,11 +38,37 @@ def displayUserMenu():
 
 def bookTicket():
     print("i am in ticket booking")
+
+##################
+# Common methods:
+##################
+
+def importTickets():
+    # Opening the file and reading number of lines
+    tickets = []
+    tickets_matrix = []
+    tickets_file = open("C:\\xampp\\htdocs\\visual studio projects\\foundations-cs-python\midterm-project\\tickets.txt", "r")
+    num_lines = len(tickets_file.readlines())
+    tickets_file.close()
+    # Opening the file and reading the content of the lines
+    # appending the content into a list
+    # then changing the list into a matrix of tickets
+    tickets_file = open("C:\\xampp\\htdocs\\visual studio projects\\foundations-cs-python\midterm-project\\tickets.txt", "r")
+    for line in tickets_file:
+        tickets.append(line.strip("\n"))
+
+    for row in range(num_lines):
+        tickets_matrix.append(tickets[row].split(","))
+    return tickets_matrix
+
 ########
 # Main:
 ########
 
 def main():
+    # Importing tickets from the text file into a matrix
+    tickets_matrix = importTickets()
+    print(tickets_matrix)
     # Displaying user or admin menu
     print("Admin/Users login form:")
     username = input("Please enter your username: ")
