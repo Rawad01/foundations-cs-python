@@ -19,8 +19,18 @@ def displayStatistics(matrix):
     event_list = Counter(event_list)
     return event_list.most_common(1)[0][0]# Got this method by researching on google. It gives you the most frequent element in a list.
 
-def adminBookTicket():
-    print("i am in admin ticket booking")
+def adminBookTicket(username, event_id, date_of_event, priority):
+    tickets_file = open("tickets.txt", "a")# a for appending in order to insert after the last line.
+    tickets_matrix = importTickets()
+    tickets_id = []
+    for row in range(len(tickets_matrix)):
+        tickets_id.append(tickets_matrix[row][0])
+    last_id = tickets_id[len(tickets_id) - 1]
+    temp_id = last_id[4:]
+    temp_id = int(temp_id) + 1
+    tick_id = "tick" + str(temp_id)
+    tickets_file.write("\n" + tick_id + ", " + username + ", " + event_id + ", " + date_of_event + ", " + str(priority))
+    tickets_file.close()
 
 def displayAllTickets():
     print("i am in admin display tickets")
@@ -111,9 +121,36 @@ def main():
     else: # choosing from admin menu
         while(choice != 7):
             if(choice == 1):
+                print()
                 print("The event ID with the highest number of tickets is:", displayStatistics(tickets_matrix))
+                print()
             elif(choice == 2):
-                bookTicket()
+                print("Booking a ticket for an event:")
+                print()
+                name = input("Please specify the name of the ticket holder: ")
+                event_id = input("Please insert the event ID for the ticket: ")
+                date_of_event = input("Please insert the date of the event in the following format(YYYYMMDD): ")
+                priority = int(input("Please specify the priority of your ticket: "))
+                adminBookTicket(name, event_id, date_of_event, priority)
+                print()
+                continue_booking = input("Would you like to book another ticket yes/no?: ")
+                if(continue_booking == "yes" or continue_booking == "no"):
+                    while(continue_booking == "yes"):
+                        print()
+                        print("Booking a ticket for an event:")
+                        print()
+                        name = input("Please specify the name of the ticket holder: ")
+                        event_id = input("Please insert the event ID for the ticket: ")
+                        date_of_event = input("Please insert the date of the event in the following format(YYYYMMDD): ")
+                        priority = int(input("Please specify the priority of your ticket: "))
+                        adminBookTicket(name, event_id, date_of_event, priority)
+                        print()
+                        continue_booking = input("Would you like to book another ticket yes/no?: ")
+                        print()
+                else:
+                    print("Incorrect input.")
+                    print("Back to admin menu:")
+                    print()
             elif(choice == 3):
                 displayAllTickets()
             elif(choice == 4):
@@ -124,5 +161,6 @@ def main():
                 runEvents()
             else:
                 print("Wrong choice please choose one of the below choices: ")
+            print()
             choice = eval(input("Please choose a number: "))
 main()
