@@ -2,6 +2,8 @@
 # Midterm-project: 
 ###################
 
+from collections import Counter
+
 #########
 # Admin:
 #########
@@ -10,8 +12,12 @@ def displayAdminMenu():
     print("Admin menu:")
     print("1. Display Statistics\n2. Book a Ticket\n3. Display all Tickets\n4. Change Ticket’s Priority\n5. Disable Ticket\n6. Run Events\n7. Exit")
 
-def displayStatistics():
-    print("i am in admin display statistics")
+def displayStatistics(matrix):
+    event_list = []
+    for row in range(len(matrix)):
+        event_list.append(matrix[row][1])
+    event_list = Counter(event_list)
+    return event_list.most_common(1)[0][0]# Got this method by researching on google. It gives you the most frequent element in a list.
 
 def adminBookTicket():
     print("i am in admin ticket booking")
@@ -105,7 +111,7 @@ def main():
     else: # choosing from admin menu
         while(choice != 7):
             if(choice == 1):
-                disableTicket()
+                print("The event ID with the highest number of tickets is:", displayStatistics(tickets_matrix))
             elif(choice == 2):
                 bookTicket()
             elif(choice == 3):
