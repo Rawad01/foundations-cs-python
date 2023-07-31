@@ -33,6 +33,7 @@ def displayAllTickets():
     date = date.strftime("%Y%m%d")# Got this method by researching on google(https://www.w3schools.com/python/python_datetime.asp).
 
 def changeTicketPriority(ticket_id, priority):
+    # Worst case: O(N)
     tickets_matrix = importTickets()
     boolean = True
     for row in range(len(tickets_matrix)):
@@ -44,8 +45,18 @@ def changeTicketPriority(ticket_id, priority):
     if not boolean:
         return False
 
-def disableTicket():
-    print("i am in admin disable ticket")
+def disableTicket(ticket_id):
+    # Worst case: O(N)
+    tickets_matrix = importTickets()
+    boolean = True
+    for row in range(len(tickets_matrix)):
+        if(ticket_id == tickets_matrix[row][0]):
+            tickets_matrix.remove(tickets_matrix[row])
+            return tickets_matrix
+        else:
+            boolean = False
+    if not boolean:
+        return False
 
 def runEvents():
     print("i am in admin run events")
@@ -185,7 +196,12 @@ def main():
                 else:
                     print(changeTicketPriority(ticket_id, priority))
             elif(choice == 5):
-                disableTicket()
+                ticket_id = input("Please specify the ticket id in which you wish to remove from the system: ")
+                if(disableTicket(ticket_id) == False):
+                    print("The ticket id was not found.")
+                else:
+                    print("The ticket with ID:", ticket_id, "was successfully removed from the system. ")
+                    print(disableTicket(ticket_id))
             elif(choice == 6):
                 runEvents()
             else:
