@@ -73,7 +73,23 @@ def disableTicket(ticket_id):
         return False
 
 def runEvents():
-    print("i am in admin run events")
+    # Worst case: O(N + N + N ^ 2) 
+    td_date = datetime.datetime.now()
+    td_date = td_date.strftime("%Y%m%d")
+    tickets_matrix = importTickets()
+    td_events = []
+    temp_matrix = tickets_matrix[:]
+    # Appending todays evenst to a new matrix
+    for row in range(len(tickets_matrix)):# O(N)
+        if(int(tickets_matrix[row][3]) == int(td_date)):
+            td_events.append(tickets_matrix[row])
+    # Removing today's events from the tickets matrix
+    for row in range(len(tickets_matrix)):# O(N)
+        if(int(tickets_matrix[row][3]) == int(td_date)):
+            temp_matrix.remove(tickets_matrix[row])
+    # returning the sorted matrix for today's event
+    # And the sorting is being done according to index 4 of the matrix which is the priority index
+    return selectionSort(td_events, 4)# O(N ^ 2)
 
 ########
 # User:
@@ -124,6 +140,18 @@ def incrementTicketId(): # this method is for autoincrementing the ticket id
     temp_id = int(temp_id) + 1
     tick_id = "tick" + str(temp_id)
     return tick_id
+
+def selectionSort(matrix, i):
+    # worst case: O(N^2)
+    # Selection sort for a matrix with a specific index
+    for row in range(len(matrix) - 1):
+        for row2 in range(row + 1, len(matrix)):
+            if(matrix[row][i] > matrix[row2][i]):
+                temp = matrix[row]
+                matrix[row] = matrix[row2]
+                matrix[row2] = temp
+    return matrix
+
 ########
 # Main:
 ########
@@ -131,7 +159,7 @@ def incrementTicketId(): # this method is for autoincrementing the ticket id
 def main():
     # Importing tickets from the text file into a matrix
     tickets_matrix = importTickets()
-    print(tickets_matrix)
+    #print(tickets_matrix)
     # Displaying user or admin menu
     print("Admin/Users login form:")
     username = input("Please enter your username: ")
@@ -166,6 +194,7 @@ def main():
                 bookTicket(username, event_id, date_of_event)
             else:
                 print("Wrong choice please choose one of the below choices: ")
+            print()
             choice = eval(input("Please choose a number: "))
     else: # choosing from admin menu
         while(choice != 7):
@@ -220,7 +249,7 @@ def main():
                     print("The ticket with ID:", ticket_id, "was successfully removed from the system. ")
                     print(disableTicket(ticket_id))
             elif(choice == 6):
-                runEvents()
+                print(runEvents())
             else:
                 print("Wrong choice please choose one of the below choices: ")
             print()
