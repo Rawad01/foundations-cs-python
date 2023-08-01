@@ -16,6 +16,7 @@ def displayAdminMenu():
 def displayStatistics(matrix):
     # Worst case: O(N)
     event_list = []
+    # Displaying the most common event in a matrix of tickets and events.
     for row in range(len(matrix)):
         event_list.append(matrix[row][1])
     event_list = Counter(event_list)
@@ -29,13 +30,25 @@ def adminBookTicket(username, event_id, date_of_event, priority):
     tickets_file.close()
 
 def displayAllTickets():
-    date = datetime.datetime.now()
-    date = date.strftime("%Y%m%d")# Got this method by researching on google(https://www.w3schools.com/python/python_datetime.asp).
+    # Worst case: O(N)
+    # today's date
+    td_date = datetime.datetime.now()
+    td_date = td_date.strftime("%Y%m%d")# Got this method by researching on google(https://www.w3schools.com/python/python_datetime.asp).
+    tickets_matrix = importTickets()
+    date_matrix = []
+    for row in range(len(tickets_matrix)):
+        # Casting the dates into an integer and then comparing them in order to be able to compare them.
+        # Appending the date matrix with all the dates that are >= to today's date.
+        if(int(tickets_matrix[row][3]) >= int(td_date)):
+            date_matrix.append(tickets_matrix[row])
+    # returning the date matrix to display (today, tomorrow, and onward's tickets and event ids')
+    return date_matrix
 
 def changeTicketPriority(ticket_id, priority):
     # Worst case: O(N)
     tickets_matrix = importTickets()
     boolean = True
+    # changing the priority of a ticket by providing it's id
     for row in range(len(tickets_matrix)):
         if(ticket_id == tickets_matrix[row][0]):
             tickets_matrix[row][4] = priority
@@ -49,6 +62,7 @@ def disableTicket(ticket_id):
     # Worst case: O(N)
     tickets_matrix = importTickets()
     boolean = True
+    # removing the ticket by providing it's id
     for row in range(len(tickets_matrix)):
         if(ticket_id == tickets_matrix[row][0]):
             tickets_matrix.remove(tickets_matrix[row])
@@ -168,6 +182,7 @@ def main():
                 priority = int(input("Please specify the priority of your ticket: "))
                 adminBookTicket(name, event_id, date_of_event, priority)
                 print()
+                # Here if the admin wants to continue booking tickets he can without returning to the menu page.
                 continue_booking = input("Would you like to book another ticket yes/no?: ")
                 if(continue_booking == "yes" or continue_booking == "no"):
                     while(continue_booking == "yes"):
@@ -187,6 +202,8 @@ def main():
                     print("Back to admin menu:")
                     print()
             elif(choice == 3):
+                print("Displaying new tickets with today's date and future dates.")
+                print("Old tickets are not shown.")
                 print(displayAllTickets())
             elif(choice == 4):
                 ticket_id = input("Please specify the ticket id in which you wish to change it's priority: ")
