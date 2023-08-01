@@ -124,7 +124,6 @@ def importTickets():
     tickets_file = open("tickets.txt", "r")
     for line in tickets_file: # Worst case: O(N) n number of lines
         tickets.append(line.strip("\n"))
-
     for row in range(num_lines): # Worst case: O(N) n rows
         tickets_matrix.append(tickets[row].split(","))
     return tickets_matrix
